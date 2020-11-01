@@ -303,6 +303,7 @@ static void volume_set_by_local_host(uint8_t volume)
     }
 }
 
+/*
 static void volume_change_simulation(void *arg)
 {
     ESP_LOGI(BT_RC_TG_TAG, "start volume change simulation");
@@ -314,6 +315,7 @@ static void volume_change_simulation(void *arg)
         volume_set_by_local_host(volume);
     }
 }
+*/
 
 static void bt_av_hdl_avrc_tg_evt(uint16_t event, void *p_param)
 {
@@ -324,13 +326,13 @@ static void bt_av_hdl_avrc_tg_evt(uint16_t event, void *p_param)
         uint8_t *bda = rc->conn_stat.remote_bda;
         ESP_LOGI(BT_RC_TG_TAG, "AVRC conn_state evt: state %d, [%02x:%02x:%02x:%02x:%02x:%02x]",
                  rc->conn_stat.connected, bda[0], bda[1], bda[2], bda[3], bda[4], bda[5]);
-        if (rc->conn_stat.connected) {
+//        if (rc->conn_stat.connected) {
             // create task to simulate volume change
-            xTaskCreate(volume_change_simulation, "vcsT", 2048, NULL, 5, &s_vcs_task_hdl);
-        } else {
-            vTaskDelete(s_vcs_task_hdl);
-            ESP_LOGI(BT_RC_TG_TAG, "Stop volume change simulation");
-        }
+//            xTaskCreate(volume_change_simulation, "vcsT", 2048, NULL, 5, &s_vcs_task_hdl);
+//        } else {
+//            vTaskDelete(s_vcs_task_hdl);
+//           ESP_LOGI(BT_RC_TG_TAG, "Stop volume change simulation");
+//        }
         break;
     }
     case ESP_AVRC_TG_PASSTHROUGH_CMD_EVT: {
